@@ -19,6 +19,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/edznux/metastats/config"
 	"github.com/edznux/metastats/events"
 	"github.com/spf13/cobra"
 )
@@ -30,9 +31,8 @@ var addCmd = &cobra.Command{
 	Example: `metastats add steps 1337
 	will add 1337 and the current timestamp in the file steps.dat`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("add called with args : ", args)
-
-		fileName := events.SavingPath + args[0] + ".dat"
+		cfg := config.LoadConfig()
+		fileName := cfg.DataPath + args[0] + ".dat"
 
 		date := time.Now().Unix()
 
@@ -40,8 +40,15 @@ var addCmd = &cobra.Command{
 			strconv.FormatInt(date, 10),
 		}
 		data = append(data, args[1:]...)
-		fmt.Println("Saving data : [", data, "] to file : ", fileName)
-		events.SaveToFile(fileName, data)
+
+		if cfg.Verbose {
+			fmt.Println("Saving data : [", data, "] to file : ", fileName)
+		}
+
+		err := events.SaveToFile(fileName, data)
+		if err != nil {
+			fmt.Printf("Could not save this new event : %s\n", err)
+		}
 	},
 }
 

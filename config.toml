@@ -1,0 +1,6 @@
+LogPath      = "/var/log/metastats/"
+SaveTimer    = 300 # in second(s), 300 = 5 min
+DataPath     = "/var/log/metastats/data/"
+Verbose      = true
+MicePath     = "/dev/input/mouse0"
+KeyboardPath = "/dev/input/event4"
