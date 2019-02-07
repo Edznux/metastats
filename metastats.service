@@ -1,0 +1,12 @@
+[Unit]
+Description=Metastats daemon, for personnal data analysis.
+After=graphical.target
+
+[Service]
+Type=exec
+User=root
+ExecStart=/usr/local/bin/metastats
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
