@@ -18,7 +18,8 @@ type Config struct {
 	SaveTimer    int    `toml:"SaveTimer"`    // save every x seconds
 }
 
-var listOfConfigPath = []string{
+var ListOfConfigPath = []string{
+	// --config /some/path will be place BEFORE any other
 	"/etc/metastats/config.toml",
 	// ./config.toml is added in the init function
 }
@@ -30,15 +31,15 @@ func init() {
 		log.Println("Error while getting current working directory.")
 	}
 	currentPath := filepath.Join(wd, "config.toml")
-	listOfConfigPath = append(listOfConfigPath, currentPath)
-
+	ListOfConfigPath = append(ListOfConfigPath, currentPath)
 }
 
-//LoadConfig search through config files
+// LoadConfig search through config files.
+// It select the first existing file from the listOfConfigPath
 func LoadConfig() Config {
 	var config Config
 	var usedPath string
-	for _, path := range listOfConfigPath {
+	for _, path := range ListOfConfigPath {
 		if _, err := os.Stat(path); !os.IsNotExist(err) {
 			usedPath = path
 			break
@@ -48,5 +49,6 @@ func LoadConfig() Config {
 	if _, err := toml.DecodeFile(usedPath, &config); err != nil {
 		log.Fatalln(err)
 	}
+	log.Println("Loaded config :", usedPath)
 	return config
 }

@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/edznux/metastats/config"
 	"github.com/edznux/metastats/events"
 	"github.com/spf13/cobra"
 )
+
+var ConfigPath string
 
 var rootCmd = &cobra.Command{
 	Use:   "metastats",
@@ -16,6 +19,7 @@ var rootCmd = &cobra.Command{
 			fmt.Println("Could not execute this program without root.")
 			return
 		}
+		config.ListOfConfigPath = append([]string{ConfigPath}, config.ListOfConfigPath...)
 		events.Start()
 	},
 }
@@ -25,4 +29,8 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
+
+func init() {
+	rootCmd.PersistentFlags().StringVar(&ConfigPath, "config", "", "config path")
 }

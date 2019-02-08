@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # systemd
+sudo systemctl stop metastats # stop it in case it already exist, so we can update.
 sudo cp metastats.service /etc/systemd/system/metastats.service
 sudo systemctl enable metastats
 
@@ -10,3 +11,9 @@ sudo cp config.toml /etc/metastats/
 
 # copy binary
 sudo cp metastats /usr/local/bin/metastats
+
+# Starts
+sudo systemctl start metastats
+
+# And check status
+sudo systemctl status metastats
