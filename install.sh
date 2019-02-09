@@ -17,3 +17,7 @@ sudo systemctl start metastats
 
 # And check status
 sudo systemctl status metastats
+
+# TODO : add rclone saving.
+# crontab -e
+# @daily rclone sync /var/log/metastats/ metastats:/
