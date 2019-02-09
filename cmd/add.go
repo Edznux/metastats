@@ -29,10 +29,10 @@ var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "A new value(s) to the dataset passed in the first arguments.",
 	Example: `metastats add steps 1337
-	will add 1337 and the current timestamp in the file steps.dat`,
+	will add 1337 and the current timestamp in the file steps.csv`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg := config.LoadConfig()
-		fileName := cfg.DataPath + args[0] + ".dat"
+		fileName := cfg.DataPath + args[0] + ".csv"
 
 		date := time.Now().Unix()
 

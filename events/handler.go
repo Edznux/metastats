@@ -78,15 +78,15 @@ func saveAndReset(data *InputData, ticker *time.Ticker) {
 			dataKb := formatKbOutput(data)
 			uptime := formatUptime()
 
-			err = SaveToFile(filepath.Join(Cfg.DataPath, "mice.dat"), dataMice)
+			err = SaveToFile(filepath.Join(Cfg.DataPath, "mice.csv"), dataMice)
 			if err != nil {
 				log.Printf("Could not save to mice file : %s\n", err)
 			}
-			err = SaveToFile(filepath.Join(Cfg.DataPath, "keyboard.dat"), dataKb)
+			err = SaveToFile(filepath.Join(Cfg.DataPath, "keyboard.csv"), dataKb)
 			if err != nil {
 				log.Printf("Could not save to keyboard file : %s\n", err)
 			}
-			err = SaveToFile(filepath.Join(Cfg.DataPath, "uptime.dat"), uptime)
+			err = SaveToFile(filepath.Join(Cfg.DataPath, "uptime.csv"), uptime)
 			if err != nil {
 				log.Printf("Could not save to uptime file : %s\n", err)
 			}
