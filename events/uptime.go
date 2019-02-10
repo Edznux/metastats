@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func readUptimeFromProc() string {
@@ -34,5 +36,11 @@ func formatUptime() []string {
 	splitted := strings.Split(data, " ")
 
 	fmt.Printf("splitted : %s", splitted)
-	return splitted
+	date := time.Now().Unix()
+	res := []string{
+		strconv.FormatInt(date, 10),
+	}
+
+	res = append(res, splitted...)
+	return res
 }
