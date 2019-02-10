@@ -16,6 +16,7 @@ type Config struct {
 	LogPath      string `toml:"LogPath"`      // were to save the application logs (output)
 	DataPath     string `toml:"DataPath"`     // were to save the collected data (output)
 	SaveTimer    int    `toml:"SaveTimer"`    // save every x seconds
+	Interface    string `toml:"Interface"`    // Interace name enpXsY
 }
 
 var ListOfConfigPath = []string{
