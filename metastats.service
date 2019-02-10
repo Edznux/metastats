@@ -1,6 +1,6 @@
 [Unit]
 Description=Metastats daemon, for personnal data analysis.
-After=graphical.target
+# After=graphical.target
 
 [Service]
 Type=exec
