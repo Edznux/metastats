@@ -34,9 +34,6 @@ type Mice struct {
 	MiddleCount int
 }
 
-func init() {
-	loadConfig()
-}
 func loadConfig() {
 	Cfg = config.LoadConfig()
 	err := os.MkdirAll(Cfg.DataPath, os.ModePerm)
@@ -49,7 +46,10 @@ func loadConfig() {
 	}
 }
 
+// Start will start all the monitoring
 func Start() {
+
+	loadConfig()
 	var data *InputData
 	data = &InputData{}
 
@@ -103,6 +103,7 @@ func saveAndReset(data *InputData, ticker *time.Ticker) {
 	}
 }
 
+//SaveToFile will save data to filename.
 func SaveToFile(filename string, data []string) error {
 	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	defer f.Close()
