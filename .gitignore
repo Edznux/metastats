@@ -1,3 +1,4 @@
 data/
 metastats
 vendor
+config.toml
