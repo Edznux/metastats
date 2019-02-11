@@ -32,7 +32,33 @@ Let it run as a daemon, it will save some stats inside the data folder (see inst
 You can add custom stats with `metastats add some-task someValue1 someValue2`. For exemple, monitor your pushups with : 
 `metastats add pushups 25` will add a line with 25, at the current timestamp to the file `pushups.csv` in the data folder.
 
+If you forgot to add something, or were AFK, you can "fake" the time with the `--at` flag.
+You can provide pretty standards english sentences.
+
+```
+sudo metastats add books --at "yesterday 2pm"
+```
+
+Don't forget the quotes or it will break up in multiple arguments and only take the first word (and put the rest inside the `add` command)
+
+## Goal
+
+This projects is mainly developed to get better understanding about myself, usage of my computers, reading books counts, sports achievements etc.
+And provide an easy to digest files to do some stats visualisation.
+
+I (am/will be) using it for :
+- Usage of my computer. [When booted on linux, so most of the time]
+  - keystrokes 
+  - clicks
+  - uptime
+  - network consumption
+    - rx bytes
+    - tx bytes
+- Number of books read.
+- Fitness.
+- Maybe more, ¯\_(ツ)_/¯
+
 ## Requirement
 
 This software will run out of the box on any *Linux* machine. It will need systemd for automatic startup.
-I do not plan to extend this software to be compatible for windows or other OS (PR welcome).
+I do not plan to extend this software to be compatible for windows or other OS (PR welcome tho).
