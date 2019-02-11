@@ -2,38 +2,83 @@
 
 
 [[projects]]
+  digest = "1:ee907e9ead8d8b090f1e2c07967ff1ec7ed20687c2ffd270d1c6c1b71dff5496"
+  name = "github.com/AlekSi/pointer"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "08a25bac605b3fcb6cc27f3917b2c2c87451963d"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:b16fbfbcc20645cb419f78325bb2e85ec729b338e996a228124d68931a6f2a37"
   name = "github.com/BurntSushi/toml"
   packages = ["."]
+  pruneopts = "UT"
   revision = "b26d9c308763d68093482582cea63d69be07a0f0"
   version = "v0.3.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:86f45732f9563abb001470a5a882860793591401461618869802bb0b9efa25c2"
   name = "github.com/gvalkov/golang-evdev"
   packages = ["."]
+  pruneopts = "UT"
   revision = "87c03aa1a370124ec5a5fac733a629e0f9acd9a6"
 
 [[projects]]
+  digest = "1:870d441fe217b8e689d7949fef6e43efbc787e50f200cb1e70dbca9204a1d6be"
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
+  pruneopts = "UT"
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:1dab2923041f2f62abcd32e7dd5e4edab908fb148fc9f0895a149aab9deeddf9"
+  name = "github.com/olebedev/when"
+  packages = [
+    ".",
+    "rules",
+    "rules/common",
+    "rules/en",
+    "rules/ru",
+  ]
+  pruneopts = "UT"
+  revision = "164b693865145cf145dbf34e6cf2ed5cb1634bf0"
+
+[[projects]]
+  digest = "1:cf31692c14422fa27c83a05292eb5cbe0fb2775972e8f1f8446a71549bd8980b"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
+  version = "v0.8.1"
+
+[[projects]]
+  digest = "1:982714fa3eaafd4251f5ccf3d133b706ad742b86c195d594e1a86050a02f87a8"
   name = "github.com/spf13/cobra"
   packages = ["."]
+  pruneopts = "UT"
   revision = "a1f051bc3eba734da4772d60e2d677f47cf93ef4"
   version = "v0.0.2"
 
 [[projects]]
+  digest = "1:9424f440bba8f7508b69414634aef3b2b3a877e522d8a4624692412805407bb7"
   name = "github.com/spf13/pflag"
   packages = ["."]
+  pruneopts = "UT"
   revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
   version = "v1.0.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2940e5f23d565023a02aee48d0995600bee2c05ddca22336959c229687abee2d"
+  input-imports = [
+    "github.com/BurntSushi/toml",
+    "github.com/gvalkov/golang-evdev",
+    "github.com/olebedev/when",
+    "github.com/spf13/cobra",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
