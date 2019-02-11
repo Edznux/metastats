@@ -20,7 +20,7 @@ sudo systemctl status metastats
 
 # Install bash completion
 METASTATS_BASHRC="source <(metastats completion)"
-if grep --quiet $METASTATS_BASHRC ~/.bashrc; then
+if grep --quiet "$METASTATS_BASHRC" ~/.bashrc; then
     echo "Already in your ~/.bashrc"
 else
     echo $METASTATS_BASHRC >> ~/.bashrc
