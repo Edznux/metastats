@@ -18,6 +18,9 @@ sudo systemctl start metastats
 # And check status
 sudo systemctl status metastats
 
+# Install bash completion
+echo "source <(metastats completion)" >> ~/.bashrc
+
 # TODO : add rclone saving.
 # crontab -e
 # @daily rclone sync /var/log/metastats/ metastats:/
