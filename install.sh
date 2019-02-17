@@ -19,12 +19,10 @@ sudo systemctl start metastats
 sudo systemctl status metastats
 
 # Install bash completion
-METASTATS_BASHRC="source <(metastats completion)"
-if grep --quiet "$METASTATS_BASHRC" ~/.bashrc; then
-    echo "Already in your ~/.bashrc"
-else
-    echo $METASTATS_BASHRC >> ~/.bashrc
-fi
+COMPLETION_FOLDER=$(pkg-config --variable=completionsdir bash-completion)
+TMP_FILE=`mktemp`
+./metastats completion > $TMP_FILE
+sudo cp $TMP_FILE $COMPLETION_FOLDER/metastats
 
 # TODO : add rclone saving.
 # crontab -e
