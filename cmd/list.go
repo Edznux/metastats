@@ -12,8 +12,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfg config.Config
-
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",

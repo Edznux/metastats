@@ -117,3 +117,21 @@ func SaveToFile(filename string, data []string) error {
 
 	return nil
 }
+
+//ReadFromEvent will return all the data from an event name (filename of the event without .csv)
+func ReadFromEvent(eventName string) ([][]string, error) {
+	filename := filepath.Join(Cfg.DataPath, eventName+".csv")
+	f, err := os.Open(filename)
+	defer f.Close()
+
+	if err != nil {
+		return nil, fmt.Errorf("Could not read file %s : %s", filename, err)
+	}
+	r := csv.NewReader(f)
+	data, err := r.ReadAll()
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
