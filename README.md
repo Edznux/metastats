@@ -56,8 +56,7 @@ I (am/will be) using it for :
     - tx bytes
 - Number of books read.
 - Fitness.
-- Maybe more, ¯\_(ツ)_/¯
-
+- Maybe more, ¯\\\_(ツ)\_/¯
 ## Requirement
 
 This software will run out of the box on any *Linux* machine. It will need systemd for automatic startup.
