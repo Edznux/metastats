@@ -3,12 +3,12 @@ package events
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/edznux/metastats/config"
-	log "github.com/mgutz/logxi/v1"
 	"github.com/pkg/errors"
 )
 
@@ -43,7 +43,7 @@ func readNetworkFromSys(config config.Config) ([]string, error) {
 func formatNetwork(config config.Config) []string {
 	data, err := readNetworkFromSys(config)
 	if err != nil {
-		log.Error(err.Error())
+		log.Print(err.Error())
 	}
 	date := time.Now().Unix()
 
