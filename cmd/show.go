@@ -2,11 +2,13 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strconv"
+	"time"
+
 	"github.com/edznux/metastats/config"
 	"github.com/edznux/metastats/events"
 	"github.com/spf13/cobra"
-	"os"
-	"strconv"
 )
 
 // showCmd represents the show command
@@ -55,8 +57,9 @@ var maxCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		max := getMax(data)
-		fmt.Printf("Max for %s events is : %v\n", args[0], max)
+		max, tsMax := getMax(data)
+		fmt.Printf("Max: %d, tsMax : %d\n", max, tsMax)
+		fmt.Printf("Max for %s events is : %v (on %s)\n", args[0], max, getTimestampByIndex(data, tsMax))
 	},
 }
 
@@ -73,8 +76,8 @@ var minCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		min := getMin(data)
-		fmt.Printf("Min for %s events is : %v\n", args[0], min)
+		min, tsMin := getMin(data)
+		fmt.Printf("Min for %s events is : %v (on %s)\n", args[0], min, getTimestampByIndex(data, tsMin))
 	},
 }
 
@@ -104,62 +107,84 @@ func getSum(data [][]string) []int {
 	}
 	return sum
 }
-func getMax(data [][]string) []int {
+
+func getMax(data [][]string) (max []int, index int) {
 	/*
 		We calculate only the max FOR EACH ELEMENTS
 		We don't try to get the maximum "line" (if there is multiple value)
 		So there might not be a line corresponding to the output.
 	*/
-	max := []int{}
-	for _, d := range data {
-		for index, element := range d {
-			// skip the timestamp.
-			if index == 0 {
+	max = []int{}
+	for _, row := range data {
+		for key, value := range row {
+			// the max will only works on numbers. (integers for now)
+			if key == 0 {
 				continue
 			}
-			// the max will only works on numbers. (integers for now)
-			tmp, err := strconv.Atoi(element)
+			tmp, err := strconv.Atoi(value)
 			if err != nil {
 				continue
 			}
-			if len(max) < index {
-				max = append(max, 0)
+			if len(max) < key {
+				max = append(max, 0) // maxint (64)
 			}
-			if max[index-1] < tmp {
-				max[index-1] = tmp
+			if max[key-1] < tmp {
+				max[key-1] = tmp
+				index = key
 			}
 		}
 	}
-	return max
+	return max, index
 }
 
-func getMin(data [][]string) []int {
+func getMin(data [][]string) (min []int, index int) {
 	/*
 		We calculate only the min FOR EACH ELEMENTS
 		We don't try to get the minimum "line" (if there is multiple value)
 		So there might not be a line corresponding to the output.
 	*/
-	min := []int{}
-	for _, d := range data {
-		for index, element := range d {
-			// skip the timestamp.
-			if index == 0 {
+	min = []int{}
+	for _, row := range data {
+		for key, value := range row {
+			// the min will only works on numbers. (integers for now)
+			if key == 0 {
 				continue
 			}
-			// the min will only works on numbers. (integers for now)
-			tmp, err := strconv.Atoi(element)
+			tmp, err := strconv.Atoi(value)
 			if err != nil {
 				continue
 			}
-			if len(min) < index {
+			if len(min) < key {
 				min = append(min, 9223372036854775807) // maxint (64)
 			}
-			if min[index-1] > tmp {
-				min[index-1] = tmp
+			if min[key-1] > tmp {
+				min[key-1] = tmp
+				index = key
 			}
 		}
 	}
-	return min
+	return min, index
+}
+func getTimestampByIndex(data [][]string, index int) string {
+	ts, err := strconv.Atoi(data[index][0])
+	if err != nil {
+		fmt.Printf("Could not parse timestamp : %s", err)
+	}
+	fmt.Println("Ts : ", ts)
+	res, err := time.Unix(int64(ts), 0).MarshalText()
+	if err != nil {
+		return "Could not get first entry time"
+	}
+	// fmt.Println(data[index][0], index, string(res))
+	return string(res)
+}
+
+func getFirst(data [][]string) string {
+	return getTimestampByIndex(data, 0)
+}
+
+func getLast(data [][]string) string {
+	return getTimestampByIndex(data, len(data)-1)
 }
 
 var allCmd = &cobra.Command{
@@ -175,11 +200,15 @@ var allCmd = &cobra.Command{
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		min := getMin(data)
-		max := getMax(data)
+		min, tsMin := getMin(data)
+		max, tsMax := getMax(data)
 		sum := getSum(data)
-		fmt.Printf("Min for %s events is : %v\n", args[0], min)
-		fmt.Printf("Max for %s events is : %v\n", args[0], max)
+		first := getFirst(data)
+		last := getFirst(data)
+		fmt.Printf("First event for %s is : %v\n", args[0], first)
+		fmt.Printf("Last event for %s is : %v\n", args[0], last)
+		fmt.Printf("Min for %s events is : %v (on %s)\n", args[0], min, getTimestampByIndex(data, tsMin))
+		fmt.Printf("Max for %s events is : %v (on %s)\n", args[0], max, getTimestampByIndex(data, tsMax))
 		fmt.Printf("Sum for %s events is : %v\n", args[0], sum)
 	},
 }
