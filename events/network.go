@@ -3,14 +3,16 @@ package events
 import (
 	"bufio"
 	"fmt"
-	"github.com/edznux/metastats/config"
-	"log"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/edznux/metastats/config"
+	log "github.com/mgutz/logxi/v1"
+	"github.com/pkg/errors"
 )
 
-func readNetworkFromSys(config config.Config) []string {
+func readNetworkFromSys(config config.Config) ([]string, error) {
 	stats := []string{"rx_bytes", "tx_bytes"}
 
 	res := []string{}
@@ -19,7 +21,7 @@ func readNetworkFromSys(config config.Config) []string {
 
 		file, err := os.Open(path)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 		defer file.Close()
 
@@ -29,16 +31,20 @@ func readNetworkFromSys(config config.Config) []string {
 		scanner.Scan()
 		data := scanner.Text()
 		if err := scanner.Err(); err != nil {
-			log.Fatalf("Cannot read %s : %s", path, err)
+			errors.Wrap(err, "Cannot read "+path)
+			return nil, err
 		}
 		res = append(res, data)
 	}
 
-	return res
+	return res, nil
 }
 
 func formatNetwork(config config.Config) []string {
-	data := readNetworkFromSys(config)
+	data, err := readNetworkFromSys(config)
+	if err != nil {
+		log.Error(err.Error())
+	}
 	date := time.Now().Unix()
 
 	res := []string{
