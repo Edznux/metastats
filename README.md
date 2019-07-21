@@ -1,4 +1,4 @@
-# Metastats 
+# Metastats
 
 Metastats is a *simple* monitoring tool for your life.
 It is monitoring some fun statistic from your computer (Linux only) like the number of keystrokes, mouse click and uptime. (might expan later)
@@ -29,7 +29,7 @@ cd metastats
 ## Usage
 
 Let it run as a daemon, it will save some stats inside the data folder (see installation).
-You can add custom stats with `metastats add some-task someValue1 someValue2`. For exemple, monitor your pushups with : 
+You can add custom stats with `metastats add some-task someValue1 someValue2`. For exemple, monitor your pushups with :
 `metastats add pushups 25` will add a line with 25, at the current timestamp to the file `pushups.csv` in the data folder.
 
 If you forgot to add something, or were AFK, you can "fake" the time with the `--at` flag.
@@ -48,7 +48,7 @@ And provide an easy to digest files to do some stats visualisation.
 
 I (am/will be) using it for :
 - Usage of my computer. [When booted on linux, so most of the time]
-  - keystrokes 
+  - keystrokes
   - clicks
   - uptime
   - network consumption
@@ -56,8 +56,7 @@ I (am/will be) using it for :
     - tx bytes
 - Number of books read.
 - Fitness.
-- Maybe more, ¯\_(ツ)_/¯
-
+- Maybe more, ¯\\\_(ツ)\_/¯
 ## Requirement
 
 This software will run out of the box on any *Linux* machine. It will need systemd for automatic startup.
